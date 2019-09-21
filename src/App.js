@@ -46,9 +46,10 @@ function App() {
 
   useEffect(() => {
     if (cells[cells.length - 1] === foodPosition) {
+      setCells([cells[0] - (cells[1] - cells[0] * -1), ...cells]);
       setFoodPosition(getFoodPosition());
     }
-  }, [cells, foodPosition, setFoodPosition, getFoodPosition]);
+  }, [cells, foodPosition, setFoodPosition, getFoodPosition, setCells]);
 
   return (
     <div className="App" role="button" tabIndex="0" onKeyDown={turn}>
