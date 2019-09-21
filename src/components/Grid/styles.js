@@ -8,5 +8,15 @@ export const Container = styled.div`
 `;
 
 export const Cell = styled.div`
+	display: flex;
+	align-items: center;
+	justify-content: center;
 	background-color: rgba(50, 168, 82, ${props => (props.number % 2 === 0 ? 0.8 : 0.5)});
+`;
+
+export const Body = styled.div`
+	width: 24px;
+	height: 24px;
+	border-radius: 50px;
+	background-color: blue;
 `;
