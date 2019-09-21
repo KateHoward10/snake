@@ -8,12 +8,28 @@ function App() {
   const [direction, setDirection] = useState('ArrowRight');
 
   function turn({ key }) {
+    console.log(key);
     setDirection(key);
   }
 
+  function getNewCells() {
+    cells.shift();
+    switch (direction) {
+      case 'ArrowRight':
+        return [...cells, cells[cells.length - 1] + 1];
+      case 'ArrowLeft':
+        return [...cells, cells[cells.length - 1] - 1];
+      case 'ArrowDown':
+        return [...cells, cells[cells.length - 1] + 17];
+      case 'ArrowUp':
+        return [...cells, cells[cells.length - 1] - 17];
+      default:
+        return cells;
+    }
+  }
+
   useInterval(() => {
-    const last = cells.shift();
-    const newCells = [...cells, cells[cells.length - 1] + 1];
+    const newCells = getNewCells();
     setCells(newCells);
   }, 500);
 
