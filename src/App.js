@@ -6,9 +6,15 @@ import useInterval from './hooks/useInterval';
 function App() {
   const [cells, setCells] = useState([137, 138, 139, 140]);
   const [direction, setDirection] = useState('ArrowRight');
+  const [interval, setInterval] = useState(null);
+  const [foodPosition, setFoodPosition] = useState(null);
+
+  function startGame() {
+    setFoodPosition(Math.floor(Math.random() * 289));
+    setInterval(500);
+  }
 
   function turn({ key }) {
-    console.log(key);
     setDirection(key);
   }
 
@@ -31,11 +37,12 @@ function App() {
   useInterval(() => {
     const newCells = getNewCells();
     setCells(newCells);
-  }, 500);
+  }, interval);
 
   return (
     <div className="App" role="button" tabIndex="0" onKeyDown={turn}>
-      <Grid cells={cells} />
+      <Grid cells={cells} foodPosition={foodPosition} />
+      <button onClick={startGame}>Play</button>
     </div>
   );
 }
