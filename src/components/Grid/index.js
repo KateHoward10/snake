@@ -6,7 +6,7 @@ function Grid({ cells }) {
 		<Container>
 			{Array.from(Array(289).keys()).map(number => (
 				<Cell key={number} number={number}>
-					{cells.includes(number) && <Body />}
+					{cells.includes(number) && <Body head={cells[cells.length - 1] === number} />}
 				</Cell>
 			))}
 		</Container>

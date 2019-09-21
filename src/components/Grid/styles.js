@@ -15,8 +15,8 @@ export const Cell = styled.div`
 `;
 
 export const Body = styled.div`
-	width: 24px;
-	height: 24px;
+	width: ${props => (props.head ? 28 : 24)}px;
+	height: ${props => (props.head ? 28 : 24)}px;
 	border-radius: 50px;
 	background-color: blue;
 `;
