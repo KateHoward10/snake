@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Grid from './components/Grid';
 import './App.css';
 import useInterval from './hooks/useInterval';
@@ -10,9 +10,14 @@ function App() {
   const [foodPosition, setFoodPosition] = useState(null);
 
   function startGame() {
-    setFoodPosition(Math.floor(Math.random() * 289));
+    setFoodPosition(getFoodPosition());
     setInterval(500);
   }
+
+  const getFoodPosition = useCallback(() => {
+    const first = Math.floor(Math.random() * 289);
+    return cells.includes(first) ? Math.floor(Math.random() * 289) : first;
+  }, [cells]);
 
   function turn({ key }) {
     setDirection(key);
@@ -38,6 +43,12 @@ function App() {
     const newCells = getNewCells();
     setCells(newCells);
   }, interval);
+
+  useEffect(() => {
+    if (cells[cells.length - 1] === foodPosition) {
+      setFoodPosition(getFoodPosition());
+    }
+  }, [cells, foodPosition, setFoodPosition, getFoodPosition]);
 
   return (
     <div className="App" role="button" tabIndex="0" onKeyDown={turn}>
