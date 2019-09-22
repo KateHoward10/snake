@@ -9,6 +9,7 @@ function App() {
   const [interval, setInterval] = useState(null);
   const [foodPosition, setFoodPosition] = useState(null);
   const [score, setScore] = useState(0);
+  const [highScore, setHighScore] = useState(0);
 
   function startGame() {
     setFoodPosition(getFoodPosition());
@@ -46,17 +47,30 @@ function App() {
   }, interval);
 
   useEffect(() => {
+    // If you eat the food
     if (snake[snake.length - 1] === foodPosition) {
       setSnake([snake[0] - (snake[1] - snake[0] * -1), ...snake]);
       setFoodPosition(getFoodPosition());
-      setScore(score + 100);
+      setScore(score + 10);
+      setInterval(interval * 0.98);
+      // If you bump into yourself
+    } else if (snake.slice(0, snake.length - 1).includes(snake[snake.length - 1])) {
+      setSnake([137, 138, 139, 140]);
+      setDirection('ArrowRight');
+      setInterval(null);
+      setFoodPosition(null);
+      setHighScore(score);
+      setScore(0);
     }
-  }, [snake, foodPosition, setFoodPosition, getFoodPosition, setSnake, score, setScore]);
+  }, [snake, foodPosition, setFoodPosition, getFoodPosition, setSnake, score, setScore, interval, setInterval]);
 
   return (
     <div className="App" role="button" tabIndex="0" onKeyDown={turn}>
-      <button onClick={startGame}>Play</button>
-      <p>Score: {score}</p>
+      <div className="controls">
+        <button onClick={startGame}>Play</button>
+        <p>Score: {score}</p>
+        <p>High Score: {highScore}</p>
+      </div>
       <Grid snake={snake} foodPosition={foodPosition} />
     </div>
   );
