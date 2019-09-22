@@ -45,10 +45,10 @@ function Grid({ snake, foodPosition }) {
 						>
 							{snake[snake.length - 1] === number && (
 								<React.Fragment>
-									<Eye>
+									<Eye headDirection={getHeadDirection()}>
 										<Pupil />
 									</Eye>
-									<Eye>
+									<Eye headDirection={getHeadDirection()}>
 										<Pupil />
 									</Eye>
 								</React.Fragment>

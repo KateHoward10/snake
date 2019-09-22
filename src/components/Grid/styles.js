@@ -53,8 +53,10 @@ export const Eye = styled.div`
 	border-radius: 50%;
 	background-color: white;
 	display: flex;
-	align-items: center;
-	justify-content: center;
+	align-items: ${props =>
+		props.headDirection === 'down' ? 'flex-end' : props.headDirection === 'up' ? 'flex-start' : 'center'};
+	justify-content: ${props =>
+		props.headDirection === 'right' ? 'flex-end' : props.headDirection === 'left' ? 'flex-start' : 'center'};
 `;
 
 export const Pupil = styled.div`
