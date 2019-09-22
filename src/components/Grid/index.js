@@ -1,19 +1,45 @@
 import React from 'react';
 import { Container, Cell, Body, Eye, Pupil } from './styles';
 
-function Grid({ snake, food, foodPosition }) {
+function Grid({ snake, food, foodPosition, direction }) {
 	function getHeadDirection() {
-		switch (snake[snake.length - 1] - snake[snake.length - 2]) {
-			case 1:
-				return 'right';
-			case -1:
-				return 'left';
-			case 17:
-				return 'down';
-			case -17:
-				return 'up';
+		function getHeadFacing() {
+			switch (snake[snake.length - 1] - snake[snake.length - 2]) {
+				case 1:
+					return 'right';
+				case -1:
+					return 'left';
+				case 17:
+					return 'down';
+				case -17:
+					return 'up';
+				default:
+					return;
+			}
+		}
+		switch (direction) {
+			case 'right':
+				if (snake[snake.length - 1] % 17 !== 0) {
+					return getHeadFacing();
+				}
+				return direction;
+			case 'left':
+				if (snake[snake.length - 1] % 17 !== 16) {
+					return getHeadFacing();
+				}
+				return direction;
+			case 'down':
+				if (snake[snake.length - 1] > 16) {
+					return getHeadFacing();
+				}
+				return direction;
+			case 'up':
+				if (snake[snake.length - 1] < 272) {
+					return getHeadFacing();
+				}
+				return direction;
 			default:
-				return;
+				return direction;
 		}
 	}
 

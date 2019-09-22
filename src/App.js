@@ -7,7 +7,7 @@ import './App.css';
 
 function App() {
   const [snake, setSnake] = useState([137, 138, 139, 140]);
-  const [direction, setDirection] = useState('ArrowRight');
+  const [direction, setDirection] = useState('right');
   const [interval, setInterval] = useState(null);
   const [foodPosition, setFoodPosition] = useState(null);
   const [score, setScore] = useState(0);
@@ -27,28 +27,28 @@ function App() {
   }, [snake]);
 
   function turn({ key }) {
-    setDirection(key);
+    setDirection(key.replace('Arrow', '').toLowerCase());
   }
 
   function getNewSnake() {
     snake.shift();
     switch (direction) {
-      case 'ArrowRight':
+      case 'right':
         if (snake[snake.length - 1] % 17 === 16) {
           return [...snake, snake[snake.length - 1] - 16];
         }
         return [...snake, snake[snake.length - 1] + 1];
-      case 'ArrowLeft':
+      case 'left':
         if (snake[snake.length - 1] % 17 === 0) {
           return [...snake, snake[snake.length - 1] + 16];
         }
         return [...snake, snake[snake.length - 1] - 1];
-      case 'ArrowDown':
+      case 'down':
         if (272 <= snake[snake.length - 1] && snake[snake.length - 1] <= 288) {
           return [...snake, snake[snake.length - 1] - 272];
         }
         return [...snake, snake[snake.length - 1] + 17];
-      case 'ArrowUp':
+      case 'up':
         if (0 <= snake[snake.length - 1] && snake[snake.length - 1] <= 16) {
           return [...snake, snake[snake.length - 1] + 272];
         }
@@ -74,7 +74,7 @@ function App() {
       // If you bump into yourself
     } else if (snake.slice(0, snake.length - 1).includes(snake[snake.length - 1])) {
       setSnake([137, 138, 139, 140]);
-      setDirection('ArrowRight');
+      setDirection('right');
       setInterval(null);
       setFoodPosition(null);
       if (score > cookies.highScore) {
@@ -101,7 +101,7 @@ function App() {
     <div className="App" role="button" tabIndex="0" onKeyDown={turn}>
       <div>
         <Controls onClick={startGame} score={score} highScore={cookies.highScore} />
-        <Grid snake={snake} food={food} foodPosition={foodPosition} />
+        <Grid snake={snake} food={food} foodPosition={foodPosition} direction={direction} />
       </div>
     </div>
   );
