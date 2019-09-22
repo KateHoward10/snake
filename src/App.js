@@ -23,7 +23,7 @@ function App() {
 
   const getFoodPosition = useCallback(() => {
     const first = Math.floor(Math.random() * 289);
-    return snake.includes(first) ? Math.floor(Math.random() * 289) : first;
+    return snake.includes(first) ? Math.floor(Math.random() * 289) : getFoodPosition();
   }, [snake]);
 
   function turn({ key }) {
