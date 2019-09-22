@@ -1,7 +1,11 @@
 {
-  "name": "snake",
+  "name": "snek",
   "version": "0.1.0",
   "private": true,
+  "engines": {
+    "npm": "6.9.0",
+    "node": "8.16.0"
+  },
   "dependencies": {
     "react": "^16.9.0",
     "react-cookie": "^4.0.1",
