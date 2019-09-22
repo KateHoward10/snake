@@ -11,8 +11,11 @@ function App() {
   const [foodPosition, setFoodPosition] = useState(null);
   const [score, setScore] = useState(0);
   const [cookies, setCookie] = useCookies(['highScore']);
+  const [food, setFood] = useState(null);
+  const foodArray = ['🍎', '🍏', '🍓', '🥭', '🍐', '🍌', '🍅'];
 
   function startGame() {
+    setFood(foodArray[Math.floor(Math.random() * foodArray.length)]);
     setFoodPosition(getFoodPosition());
     setInterval(500);
   }
@@ -63,6 +66,7 @@ function App() {
     // If you eat the food
     if (snake[snake.length - 1] === foodPosition) {
       setSnake([snake[0] - (snake[1] - snake[0] * -1), ...snake]);
+      setFood(foodArray[Math.floor(Math.random() * foodArray.length)]);
       setFoodPosition(getFoodPosition());
       setScore(score + 10);
       setInterval(interval * 0.95);
@@ -88,7 +92,8 @@ function App() {
     interval,
     setInterval,
     cookies,
-    setCookie
+    setCookie,
+    foodArray
   ]);
 
   return (
@@ -98,7 +103,7 @@ function App() {
         <p>Score: {score}</p>
         <p>High Score: {cookies.highScore}</p>
       </div>
-      <Grid snake={snake} foodPosition={foodPosition} />
+      <Grid snake={snake} food={food} foodPosition={foodPosition} />
     </div>
   );
 }

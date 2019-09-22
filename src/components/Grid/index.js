@@ -1,7 +1,7 @@
 import React from 'react';
 import { Container, Cell, Body, Eye, Pupil } from './styles';
 
-function Grid({ snake, foodPosition }) {
+function Grid({ snake, food, foodPosition }) {
 	function getHeadDirection() {
 		switch (snake[snake.length - 1] - snake[snake.length - 2]) {
 			case 1:
@@ -55,7 +55,7 @@ function Grid({ snake, foodPosition }) {
 							)}
 						</Body>
 					) : (
-						number === foodPosition && '🍎'
+						number === foodPosition && food
 					)}
 				</Cell>
 			))}
