@@ -4,10 +4,11 @@ import './App.css';
 import useInterval from './hooks/useInterval';
 
 function App() {
-  const [cells, setCells] = useState([137, 138, 139, 140]);
+  const [snake, setSnake] = useState([137, 138, 139, 140]);
   const [direction, setDirection] = useState('ArrowRight');
   const [interval, setInterval] = useState(null);
   const [foodPosition, setFoodPosition] = useState(null);
+  const [score, setScore] = useState(0);
 
   function startGame() {
     setFoodPosition(getFoodPosition());
@@ -16,45 +17,47 @@ function App() {
 
   const getFoodPosition = useCallback(() => {
     const first = Math.floor(Math.random() * 289);
-    return cells.includes(first) ? Math.floor(Math.random() * 289) : first;
-  }, [cells]);
+    return snake.includes(first) ? Math.floor(Math.random() * 289) : first;
+  }, [snake]);
 
   function turn({ key }) {
     setDirection(key);
   }
 
-  function getNewCells() {
-    cells.shift();
+  function getNewSnake() {
+    snake.shift();
     switch (direction) {
       case 'ArrowRight':
-        return [...cells, cells[cells.length - 1] + 1];
+        return [...snake, snake[snake.length - 1] + 1];
       case 'ArrowLeft':
-        return [...cells, cells[cells.length - 1] - 1];
+        return [...snake, snake[snake.length - 1] - 1];
       case 'ArrowDown':
-        return [...cells, cells[cells.length - 1] + 17];
+        return [...snake, snake[snake.length - 1] + 17];
       case 'ArrowUp':
-        return [...cells, cells[cells.length - 1] - 17];
+        return [...snake, snake[snake.length - 1] - 17];
       default:
-        return cells;
+        return snake;
     }
   }
 
   useInterval(() => {
-    const newCells = getNewCells();
-    setCells(newCells);
+    const newSnake = getNewSnake();
+    setSnake(newSnake);
   }, interval);
 
   useEffect(() => {
-    if (cells[cells.length - 1] === foodPosition) {
-      setCells([cells[0] - (cells[1] - cells[0] * -1), ...cells]);
+    if (snake[snake.length - 1] === foodPosition) {
+      setSnake([snake[0] - (snake[1] - snake[0] * -1), ...snake]);
       setFoodPosition(getFoodPosition());
+      setScore(score + 100);
     }
-  }, [cells, foodPosition, setFoodPosition, getFoodPosition, setCells]);
+  }, [snake, foodPosition, setFoodPosition, getFoodPosition, setSnake, score, setScore]);
 
   return (
     <div className="App" role="button" tabIndex="0" onKeyDown={turn}>
-      <Grid cells={cells} foodPosition={foodPosition} />
       <button onClick={startGame}>Play</button>
+      <p>Score: {score}</p>
+      <Grid snake={snake} foodPosition={foodPosition} />
     </div>
   );
 }
