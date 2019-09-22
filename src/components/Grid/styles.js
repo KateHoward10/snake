@@ -15,12 +15,19 @@ export const Cell = styled.div`
 `;
 
 export const Body = styled.div`
-	width: ${props => (props.isHead ? 28 : 24)}px;
-	height: ${props => (props.isHead ? 28 : 24)}px;
-	border-radius: 50%;
+	width: 30px;
+	height: 30px;
 	background-color: blue;
 	display: flex;
-	flex-direction: ${props => (props.isVertical ? 'row' : 'column')};
+	flex-direction: ${props => (props.headDirection === 'up' || props.headDirection === 'down' ? 'row' : 'column')};
+	border-top-right-radius: ${props =>
+		props.isHead && (props.headDirection === 'right' || props.headDirection === 'up' ? '50%' : 0)};
+	border-bottom-right-radius: ${props =>
+		props.isHead && (props.headDirection === 'right' || props.headDirection === 'down' ? '50%' : 0)};
+	border-bottom-left-radius: ${props =>
+		props.isHead && (props.headDirection === 'left' || props.headDirection === 'down' ? '50%' : 0)};
+	border-top-left-radius: ${props =>
+		props.isHead && (props.headDirection === 'left' || props.headDirection === 'up' ? '50%' : 0)};
 	align-items: center;
 	justify-content: space-around;
 `;
