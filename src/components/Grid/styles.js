@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 export const Container = styled.div`
 	display: grid;
@@ -19,32 +19,31 @@ export const Body = styled.div`
 	height: 30px;
 	background-color: blue;
 	display: flex;
-	${props =>
-		props.isHead &&
-		css`
-			flex-direction: ${props => (props.headDirection === 'up' || props.headDirection === 'down' ? 'row' : 'column')};
-			border-top-right-radius: ${props =>
-				props.headDirection === 'right' || props.headDirection === 'up' ? '50%' : 0};
-			border-bottom-right-radius: ${props =>
-				props.headDirection === 'right' || props.headDirection === 'down' ? '50%' : 0};
-			border-bottom-left-radius: ${props =>
-				props.headDirection === 'left' || props.headDirection === 'down' ? '50%' : 0};
-			border-top-left-radius: ${props => (props.headDirection === 'left' || props.headDirection === 'up' ? '50%' : 0)};
-		`}
-	${props =>
-		props.isTail &&
-		css`
-			border-top-right-radius: ${props =>
-				props.tailDirection === 'left' || props.tailDirection === 'down' ? '50%' : 0};
-			border-bottom-right-radius: ${props =>
-				props.tailDirection === 'left' || props.tailDirection === 'up' ? '50%' : 0};
-			border-bottom-left-radius: ${props =>
-				props.tailDirection === 'right' || props.tailDirection === 'up' ? '50%' : 0};
-			border-top-left-radius: ${props =>
-				props.tailDirection === 'right' || props.tailDirection === 'down' ? '50%' : 0};
-		`}
+`;
+
+export const Head = styled.div`
+	width: 30px;
+	height: 30px;
+	background-color: blue;
+	display: flex;
+	flex-direction: ${props => (props.direction === 'up' || props.direction === 'down' ? 'row' : 'column')};
+	border-top-right-radius: ${props => (props.direction === 'right' || props.direction === 'up' ? '50%' : 0)};
+	border-bottom-right-radius: ${props => (props.direction === 'right' || props.direction === 'down' ? '50%' : 0)};
+	border-bottom-left-radius: ${props => (props.direction === 'left' || props.direction === 'down' ? '50%' : 0)};
+	border-top-left-radius: ${props => (props.direction === 'left' || props.direction === 'up' ? '50%' : 0)};
 	align-items: center;
 	justify-content: space-around;
+`;
+
+export const Tail = styled.div`
+	width: 30px;
+	height: 30px;
+	background-color: blue;
+	display: flex;
+	border-top-right-radius: ${props => (props.direction === 'left' || props.direction === 'down' ? '50%' : 0)};
+	border-bottom-right-radius: ${props => (props.direction === 'left' || props.direction === 'up' ? '50%' : 0)};
+	border-bottom-left-radius: ${props => (props.direction === 'right' || props.direction === 'up' ? '50%' : 0)};
+	border-top-left-radius: ${props => (props.direction === 'right' || props.direction === 'down' ? '50%' : 0)};
 `;
 
 export const Eye = styled.div`
@@ -54,9 +53,9 @@ export const Eye = styled.div`
 	background-color: white;
 	display: flex;
 	align-items: ${props =>
-		props.headDirection === 'down' ? 'flex-end' : props.headDirection === 'up' ? 'flex-start' : 'center'};
+		props.direction === 'down' ? 'flex-end' : props.direction === 'up' ? 'flex-start' : 'center'};
 	justify-content: ${props =>
-		props.headDirection === 'right' ? 'flex-end' : props.headDirection === 'left' ? 'flex-start' : 'center'};
+		props.direction === 'right' ? 'flex-end' : props.direction === 'left' ? 'flex-start' : 'center'};
 `;
 
 export const Pupil = styled.div`
