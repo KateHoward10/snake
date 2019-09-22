@@ -1,7 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
+import useInterval from './hooks/useInterval';
+import { useCookies } from 'react-cookie';
 import Grid from './components/Grid';
 import './App.css';
-import useInterval from './hooks/useInterval';
 
 function App() {
   const [snake, setSnake] = useState([137, 138, 139, 140]);
@@ -9,7 +10,7 @@ function App() {
   const [interval, setInterval] = useState(null);
   const [foodPosition, setFoodPosition] = useState(null);
   const [score, setScore] = useState(0);
-  const [highScore, setHighScore] = useState(0);
+  const [cookies, setCookie] = useCookies(['highScore']);
 
   function startGame() {
     setFoodPosition(getFoodPosition());
@@ -71,17 +72,31 @@ function App() {
       setDirection('ArrowRight');
       setInterval(null);
       setFoodPosition(null);
-      setHighScore(score);
+      if (score > cookies.highScore) {
+        setCookie('highScore', score);
+      }
       setScore(0);
     }
-  }, [snake, foodPosition, setFoodPosition, getFoodPosition, setSnake, score, setScore, interval, setInterval]);
+  }, [
+    snake,
+    foodPosition,
+    setFoodPosition,
+    getFoodPosition,
+    setSnake,
+    score,
+    setScore,
+    interval,
+    setInterval,
+    cookies,
+    setCookie
+  ]);
 
   return (
     <div className="App" role="button" tabIndex="0" onKeyDown={turn}>
       <div className="controls">
         <button onClick={startGame}>Play</button>
         <p>Score: {score}</p>
-        <p>High Score: {highScore}</p>
+        <p>High Score: {cookies.highScore}</p>
       </div>
       <Grid snake={snake} foodPosition={foodPosition} />
     </div>
