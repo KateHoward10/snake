@@ -29,12 +29,24 @@ function App() {
     snake.shift();
     switch (direction) {
       case 'ArrowRight':
+        if (snake[snake.length - 1] % 17 === 16) {
+          return [...snake, snake[snake.length - 1] - 16];
+        }
         return [...snake, snake[snake.length - 1] + 1];
       case 'ArrowLeft':
+        if (snake[snake.length - 1] % 17 === 0) {
+          return [...snake, snake[snake.length - 1] + 16];
+        }
         return [...snake, snake[snake.length - 1] - 1];
       case 'ArrowDown':
+        if (272 <= snake[snake.length - 1] && snake[snake.length - 1] <= 288) {
+          return [...snake, snake[snake.length - 1] - 272];
+        }
         return [...snake, snake[snake.length - 1] + 17];
       case 'ArrowUp':
+        if (0 <= snake[snake.length - 1] && snake[snake.length - 1] <= 16) {
+          return [...snake, snake[snake.length - 1] + 272];
+        }
         return [...snake, snake[snake.length - 1] - 17];
       default:
         return snake;
