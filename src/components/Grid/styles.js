@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
 	display: grid;
@@ -19,15 +19,30 @@ export const Body = styled.div`
 	height: 30px;
 	background-color: blue;
 	display: flex;
-	flex-direction: ${props => (props.headDirection === 'up' || props.headDirection === 'down' ? 'row' : 'column')};
-	border-top-right-radius: ${props =>
-		props.isHead && (props.headDirection === 'right' || props.headDirection === 'up' ? '50%' : 0)};
-	border-bottom-right-radius: ${props =>
-		props.isHead && (props.headDirection === 'right' || props.headDirection === 'down' ? '50%' : 0)};
-	border-bottom-left-radius: ${props =>
-		props.isHead && (props.headDirection === 'left' || props.headDirection === 'down' ? '50%' : 0)};
-	border-top-left-radius: ${props =>
-		props.isHead && (props.headDirection === 'left' || props.headDirection === 'up' ? '50%' : 0)};
+	${props =>
+		props.isHead &&
+		css`
+			flex-direction: ${props => (props.headDirection === 'up' || props.headDirection === 'down' ? 'row' : 'column')};
+			border-top-right-radius: ${props =>
+				props.headDirection === 'right' || props.headDirection === 'up' ? '50%' : 0};
+			border-bottom-right-radius: ${props =>
+				props.headDirection === 'right' || props.headDirection === 'down' ? '50%' : 0};
+			border-bottom-left-radius: ${props =>
+				props.headDirection === 'left' || props.headDirection === 'down' ? '50%' : 0};
+			border-top-left-radius: ${props => (props.headDirection === 'left' || props.headDirection === 'up' ? '50%' : 0)};
+		`}
+	${props =>
+		props.isTail &&
+		css`
+			border-top-right-radius: ${props =>
+				props.tailDirection === 'left' || props.tailDirection === 'down' ? '50%' : 0};
+			border-bottom-right-radius: ${props =>
+				props.tailDirection === 'left' || props.tailDirection === 'up' ? '50%' : 0};
+			border-bottom-left-radius: ${props =>
+				props.tailDirection === 'right' || props.tailDirection === 'up' ? '50%' : 0};
+			border-top-left-radius: ${props =>
+				props.tailDirection === 'right' || props.tailDirection === 'down' ? '50%' : 0};
+		`}
 	align-items: center;
 	justify-content: space-around;
 `;
