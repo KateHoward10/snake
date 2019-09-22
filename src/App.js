@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import useInterval from './hooks/useInterval';
 import { useCookies } from 'react-cookie';
+import Controls from './components/Controls';
 import Grid from './components/Grid';
 import './App.css';
 
@@ -98,12 +99,10 @@ function App() {
 
   return (
     <div className="App" role="button" tabIndex="0" onKeyDown={turn}>
-      <div className="controls">
-        <button onClick={startGame}>Play</button>
-        <p>Score: {score}</p>
-        <p>High Score: {cookies.highScore}</p>
+      <div>
+        <Controls onClick={startGame} score={score} highScore={cookies.highScore} />
+        <Grid snake={snake} food={food} foodPosition={foodPosition} />
       </div>
-      <Grid snake={snake} food={food} foodPosition={foodPosition} />
     </div>
   );
 }

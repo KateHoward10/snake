@@ -5,16 +5,3 @@
   align-items: center;
   padding: 20px;
 }
-
-.controls {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
-
-button,
-p {
-  font-size: 20px;
-  margin: 10px;
-}
