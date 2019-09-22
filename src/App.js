@@ -6,14 +6,16 @@ import Grid from './components/Grid';
 import './App.css';
 
 function App() {
-  const [snake, setSnake] = useState([137, 138, 139, 140]);
+  const originalSnake = [137, 138, 139, 140];
+  const [snake, setSnake] = useState(originalSnake);
   const [direction, setDirection] = useState('right');
   const [interval, setInterval] = useState(null);
-  const [foodPosition, setFoodPosition] = useState(null);
   const [score, setScore] = useState(0);
   const [cookies, setCookie] = useCookies(['highScore']);
+  const [tailAppearing, setTailAppearing] = useState(false);
+  const [foodPosition, setFoodPosition] = useState(null);
   const [food, setFood] = useState(null);
-  const foodArray = ['🍎', '🍏', '🍓', '🥭', '🍐', '🍌', '🍅'];
+  const foodArray = ['🍎', '🍏', '🍓', '🥭', '🍐', '🍌', '🍅', '🥕', '🥔', '🥬'];
 
   function startGame() {
     setFood(foodArray[Math.floor(Math.random() * foodArray.length)]);
@@ -23,7 +25,7 @@ function App() {
 
   const getFoodPosition = useCallback(() => {
     const first = Math.floor(Math.random() * 289);
-    return snake.includes(first) ? Math.floor(Math.random() * 289) : getFoodPosition();
+    return snake.includes(first) ? getFoodPosition() : first;
   }, [snake]);
 
   function turn({ key }) {
@@ -67,13 +69,14 @@ function App() {
     // If you eat the food
     if (snake[snake.length - 1] === foodPosition) {
       setSnake([snake[0] - (snake[1] - snake[0] * -1), ...snake]);
+      setTailAppearing(true);
       setFood(foodArray[Math.floor(Math.random() * foodArray.length)]);
       setFoodPosition(getFoodPosition());
       setScore(score + 10);
       setInterval(interval * 0.95);
       // If you bump into yourself
     } else if (snake.slice(0, snake.length - 1).includes(snake[snake.length - 1])) {
-      setSnake([137, 138, 139, 140]);
+      setSnake(originalSnake);
       setDirection('right');
       setInterval(null);
       setFoodPosition(null);
@@ -81,6 +84,8 @@ function App() {
         setCookie('highScore', score);
       }
       setScore(0);
+    } else {
+      setTailAppearing(false);
     }
   }, [
     snake,
@@ -94,14 +99,21 @@ function App() {
     setInterval,
     cookies,
     setCookie,
-    foodArray
+    foodArray,
+    originalSnake
   ]);
 
   return (
     <div className="App" role="button" tabIndex="0" onKeyDown={turn}>
       <div>
         <Controls onClick={startGame} score={score} highScore={cookies.highScore} />
-        <Grid snake={snake} food={food} foodPosition={foodPosition} direction={direction} />
+        <Grid
+          snake={snake}
+          food={food}
+          foodPosition={foodPosition}
+          direction={direction}
+          tailAppearing={tailAppearing}
+        />
       </div>
     </div>
   );

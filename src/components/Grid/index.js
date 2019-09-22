@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
+import useInterval from '../../hooks/useInterval';
 import { Container, Cell, Head, Body, Tail, Eye, Pupil } from './styles';
 
-function Grid({ snake, food, foodPosition, direction }) {
+function Grid({ snake, food, foodPosition, direction, tailAppearing }) {
+	const [tailOpacity, setTailOpacity] = useState(1);
+	const [fadeInterval, setFadeInterval] = useState(null);
+
 	function getNormalDirection(firstPos, secondPos) {
 		switch (firstPos - secondPos) {
 			case 1:
@@ -30,6 +34,17 @@ function Grid({ snake, food, foodPosition, direction }) {
 		}
 	}
 
+	useInterval(() => {
+		if (tailOpacity < 1) setTailOpacity(tailOpacity + 0.1);
+	}, fadeInterval);
+
+	useEffect(() => {
+		if (tailAppearing) {
+			setTailOpacity(0);
+			setFadeInterval(100);
+		}
+	}, [tailAppearing]);
+
 	return (
 		<Container>
 			{Array.from(Array(289).keys()).map(number => (
@@ -44,7 +59,7 @@ function Grid({ snake, food, foodPosition, direction }) {
 							</Eye>
 						</Head>
 					) : snake[0] === number ? (
-						<Tail direction={getNormalDirection(snake[1], snake[0])} />
+						<Tail direction={getNormalDirection(snake[1], snake[0])} opacity={tailOpacity} />
 					) : snake.includes(number) ? (
 						<Body />
 					) : (

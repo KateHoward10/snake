@@ -44,6 +44,7 @@ export const Tail = styled.div`
 	border-bottom-right-radius: ${props => (props.direction === 'left' || props.direction === 'up' ? '50%' : 0)};
 	border-bottom-left-radius: ${props => (props.direction === 'right' || props.direction === 'up' ? '50%' : 0)};
 	border-top-left-radius: ${props => (props.direction === 'right' || props.direction === 'down' ? '50%' : 0)};
+	opacity: ${props => props.opacity};
 `;
 
 export const Eye = styled.div`
