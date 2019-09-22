@@ -65,7 +65,7 @@ function App() {
       setSnake([snake[0] - (snake[1] - snake[0] * -1), ...snake]);
       setFoodPosition(getFoodPosition());
       setScore(score + 10);
-      setInterval(interval * 0.98);
+      setInterval(interval * 0.95);
       // If you bump into yourself
     } else if (snake.slice(0, snake.length - 1).includes(snake[snake.length - 1])) {
       setSnake([137, 138, 139, 140]);

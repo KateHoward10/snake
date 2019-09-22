@@ -15,8 +15,29 @@ export const Cell = styled.div`
 `;
 
 export const Body = styled.div`
-	width: ${props => (props.head ? 28 : 24)}px;
-	height: ${props => (props.head ? 28 : 24)}px;
+	width: ${props => (props.isHead ? 28 : 24)}px;
+	height: ${props => (props.isHead ? 28 : 24)}px;
 	border-radius: 50%;
 	background-color: blue;
+	display: flex;
+	flex-direction: ${props => (props.isVertical ? 'row' : 'column')};
+	align-items: center;
+	justify-content: space-around;
+`;
+
+export const Eye = styled.div`
+	width: 5px;
+	height: 5px;
+	border-radius: 50%;
+	background-color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+`;
+
+export const Pupil = styled.div`
+	width: 3px;
+	height: 3px;
+	border-radius: 50%;
+	background-color: black;
 `;
