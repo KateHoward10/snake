@@ -30,7 +30,9 @@ function App() {
   }, [snake]);
 
   function turn({ key }) {
-    setDirection(key.replace('Arrow', '').toLowerCase());
+    if (key.indexOf('Arrow') === 0) {
+      setDirection(key.replace('Arrow', '').toLowerCase());
+    }
   }
 
   function getNewSnake() {
