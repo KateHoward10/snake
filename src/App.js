@@ -3,6 +3,7 @@ import useInterval from './hooks/useInterval';
 import { useCookies } from 'react-cookie';
 import Controls from './components/Controls';
 import Grid from './components/Grid';
+import Arrows from './components/Arrows';
 import './App.css';
 
 function App() {
@@ -76,7 +77,7 @@ function App() {
       setFood(foodArray[Math.floor(Math.random() * foodArray.length)]);
       setFoodPosition(getFoodPosition());
       setScore(score + 10);
-      setInterval(interval * 0.95);
+      setInterval(interval * 0.98);
       // If you bump into yourself
     } else if (snake.slice(0, snake.length - 1).includes(snake[snake.length - 1])) {
       setSnake(originalSnake);
@@ -119,6 +120,7 @@ function App() {
           direction={direction}
           tailAppearing={tailAppearing}
         />
+        <Arrows onClick={turn} />
       </div>
     </div>
   );

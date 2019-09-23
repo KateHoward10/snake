@@ -15,6 +15,9 @@ export const Button = styled.button`
 	border: 4px solid orange;
 	border-radius: 10px;
 	color: white;
+	@media screen and (max-width: 600px) {
+		font-size: 4vw;
+	}
 `;
 
 export const Score = styled.p`
@@ -24,4 +27,7 @@ export const Score = styled.p`
 	background-color: transparent;
 	border: 4px solid orange;
 	border-radius: 10px;
+	@media screen and (max-width: 600px) {
+		font-size: 4vw;
+	}
 `;

@@ -4,6 +4,10 @@ export const Container = styled.div`
 	display: grid;
 	grid-template-rows: repeat(17, 30px);
 	grid-template-columns: repeat(17, 30px);
+	@media screen and (max-width: 600px) {
+		grid-template-rows: repeat(17, 5vw);
+		grid-template-columns: repeat(17, 5vw);
+	}
 `;
 
 export const Cell = styled.div`
@@ -12,6 +16,9 @@ export const Cell = styled.div`
 	justify-content: center;
 	background-color: rgba(50, 168, 82, ${props => (props.number % 2 === 0 ? 0.8 : 0.5)});
 	font-size: 24px;
+	@media screen and (max-width: 600px) {
+		font-size: 3vw;
+	}
 `;
 
 export const Body = styled.div`
@@ -24,6 +31,10 @@ export const Body = styled.div`
 		css`
 			border-${props.corner}-radius: 50%;
 		`}
+	@media screen and (max-width: 600px) {
+		width: 5vw;
+		height: 5vw;
+	}
 `;
 
 export const Head = styled.div`
@@ -38,6 +49,10 @@ export const Head = styled.div`
 	border-top-left-radius: ${props => (props.direction === 'left' || props.direction === 'up' ? '50%' : 0)};
 	align-items: center;
 	justify-content: space-around;
+	@media screen and (max-width: 600px) {
+		width: 5vw;
+		height: 5vw;
+	}
 `;
 
 export const Tail = styled.div`
@@ -50,6 +65,10 @@ export const Tail = styled.div`
 	border-bottom-left-radius: ${props => (props.direction === 'right' || props.direction === 'up' ? '50%' : 0)};
 	border-top-left-radius: ${props => (props.direction === 'right' || props.direction === 'down' ? '50%' : 0)};
 	opacity: ${props => props.opacity};
+	@media screen and (max-width: 600px) {
+		width: 5vw;
+		height: 5vw;
+	}
 `;
 
 export const Eye = styled.div`
@@ -62,6 +81,10 @@ export const Eye = styled.div`
 		props.direction === 'down' ? 'flex-end' : props.direction === 'up' ? 'flex-start' : 'center'};
 	justify-content: ${props =>
 		props.direction === 'right' ? 'flex-end' : props.direction === 'left' ? 'flex-start' : 'center'};
+	@media screen and (max-width: 600px) {
+		width: 3px;
+		height: 3px;
+	}
 `;
 
 export const Pupil = styled.div`
@@ -69,4 +92,8 @@ export const Pupil = styled.div`
 	height: 3px;
 	border-radius: 50%;
 	background-color: black;
+	@media screen and (max-width: 600px) {
+		width: 1px;
+		height: 1px;
+	}
 `;
