@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Container = styled.div`
 	display: grid;
@@ -19,6 +19,11 @@ export const Body = styled.div`
 	height: 30px;
 	background-color: blue;
 	display: flex;
+	${props =>
+		props.corner &&
+		css`
+			border-${props.corner}-radius: 50%;
+		`}
 `;
 
 export const Head = styled.div`
