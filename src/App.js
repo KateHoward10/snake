@@ -12,6 +12,7 @@ function App() {
   const [interval, setInterval] = useState(null);
   const [score, setScore] = useState(0);
   const [cookies, setCookie] = useCookies(['highScore']);
+  const [highScore, setHighScore] = useState(cookies.highScore || 0);
   const [tailAppearing, setTailAppearing] = useState(false);
   const [foodPosition, setFoodPosition] = useState(null);
   const [food, setFood] = useState(null);
@@ -80,7 +81,8 @@ function App() {
       setDirection('right');
       setInterval(null);
       setFoodPosition(null);
-      if (score > cookies.highScore) {
+      if (score > highScore) {
+        setHighScore(score);
         setCookie('highScore', score);
       }
       setScore(0);
@@ -94,6 +96,7 @@ function App() {
     getFoodPosition,
     setSnake,
     score,
+    highScore,
     setScore,
     interval,
     setInterval,
@@ -106,7 +109,7 @@ function App() {
   return (
     <div className="App" role="button" tabIndex="0" onKeyDown={turn}>
       <div>
-        <Controls onClick={startGame} score={score} highScore={cookies.highScore} />
+        <Controls onClick={startGame} score={score} highScore={highScore} />
         <Grid
           snake={snake}
           food={food}
