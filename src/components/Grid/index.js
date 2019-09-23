@@ -49,14 +49,14 @@ function Grid({ snake, food, foodPosition, direction, tailAppearing }) {
 		return null;
 	}
 
-	function getHeadDirection() {
+	function getDirection(index, prevIndex) {
 		if (
-			(direction === 'right' && snake[snake.length - 1] % 17 !== 0) ||
-			(direction === 'left' && snake[snake.length - 1] % 17 !== 16) ||
-			(direction === 'down' && snake[snake.length - 1] > 16) ||
-			(direction === 'up' && snake[snake.length - 1] < 272)
+			(direction === 'right' && snake[index] % 17 !== 0) ||
+			(direction === 'left' && snake[index] % 17 !== 16) ||
+			(direction === 'down' && snake[index] > 16) ||
+			(direction === 'up' && snake[index] < 272)
 		) {
-			return getNormalDirection(snake[snake.length - 1], snake[snake.length - 2]);
+			return getNormalDirection(snake[index], snake[prevIndex]);
 		} else {
 			return direction;
 		}
@@ -78,11 +78,11 @@ function Grid({ snake, food, foodPosition, direction, tailAppearing }) {
 			{Array.from(Array(289).keys()).map(number => (
 				<Cell key={number} number={number}>
 					{snake[snake.length - 1] === number ? (
-						<Head direction={getHeadDirection()}>
-							<Eye direction={getHeadDirection()}>
+						<Head direction={getDirection(snake.length - 1, snake.length - 2)}>
+							<Eye direction={getDirection(snake.length - 1, snake.length - 2)}>
 								<Pupil />
 							</Eye>
-							<Eye direction={getHeadDirection()}>
+							<Eye direction={getDirection(snake.length - 1, snake.length - 2)}>
 								<Pupil />
 							</Eye>
 						</Head>
