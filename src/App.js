@@ -4,6 +4,7 @@ import { useCookies } from 'react-cookie';
 import Controls from './components/Controls';
 import Grid from './components/Grid';
 import Arrows from './components/Arrows';
+import GameOver from './components/GameOver';
 import './App.css';
 
 function App() {
@@ -15,6 +16,7 @@ function App() {
   const [cookies, setCookie] = useCookies(['highScore']);
   const [highScore, setHighScore] = useState(cookies.highScore || 0);
   const [tailAppearing, setTailAppearing] = useState(false);
+  const [gameOver, toggleGameOver] = useState(false);
   const [foodPosition, setFoodPosition] = useState(null);
   const [food, setFood] = useState(null);
   const foodArray = ['🍎', '🍏', '🍓', '🥭', '🍐', '🍌', '🍅', '🥕', '🥔', '🥬'];
@@ -89,6 +91,7 @@ function App() {
         setCookie('highScore', score);
       }
       setScore(0);
+      toggleGameOver(true);
     } else {
       setTailAppearing(false);
     }
@@ -121,6 +124,7 @@ function App() {
           tailAppearing={tailAppearing}
         />
         <Arrows onClick={turn} />
+        <GameOver visible={gameOver} onClick={() => toggleGameOver(false)} />
       </div>
     </div>
   );

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 
 export const Container = styled.div`
 	@media screen and (min-width: 600px) {
-		visibility: hidden;
+		display: none;
 	}
 `;
 
