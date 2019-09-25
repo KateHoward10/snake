@@ -17,6 +17,7 @@ function App() {
   const [highScore, setHighScore] = useState(cookies.highScore || 0);
   const [tailAppearing, setTailAppearing] = useState(false);
   const [gameOver, toggleGameOver] = useState(false);
+  const [corners, setCorners] = useState([]);
   const [foodPosition, setFoodPosition] = useState(null);
   const [food, setFood] = useState(null);
   const foodArray = ['🍎', '🍏', '🍓', '🥭', '🍐', '🍌', '🍅', '🥕', '🥔', '🥬'];
@@ -34,7 +35,14 @@ function App() {
 
   function turn({ key }) {
     if (key.indexOf('Arrow') === 0) {
-      setDirection(key.replace('Arrow', '').toLowerCase());
+      const newDirection = key.replace('Arrow', '').toLowerCase();
+      const corner = {
+        index: snake[snake.length - 1],
+        prev: direction,
+        next: newDirection
+      };
+      setDirection(newDirection);
+      setCorners([...corners.filter(corner => snake.includes(corner.index)), corner]);
     }
   }
 
@@ -122,6 +130,7 @@ function App() {
           foodPosition={foodPosition}
           direction={direction}
           tailAppearing={tailAppearing}
+          corners={corners}
         />
         <Arrows onClick={turn} />
         <GameOver visible={gameOver} onClick={() => toggleGameOver(false)} />

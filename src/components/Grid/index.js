@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import useInterval from '../../hooks/useInterval';
 import { Container, Cell, Head, Body, Tail, Eye, Pupil } from './styles';
 
-function Grid({ snake, food, foodPosition, direction, tailAppearing }) {
+function Grid({ snake, food, foodPosition, direction, tailAppearing, corners }) {
 	const [tailOpacity, setTailOpacity] = useState(1);
 	const [fadeInterval, setFadeInterval] = useState(null);
 
@@ -22,27 +22,23 @@ function Grid({ snake, food, foodPosition, direction, tailAppearing }) {
 	}
 
 	function checkIfCorner(number) {
-		const index = snake.indexOf(number);
-		const prev = snake[index - 1];
-		const next = snake[index + 1];
-		if (
-			(getNormalDirection(number, prev) === 'right' && getNormalDirection(next, number) === 'down') ||
-			(getNormalDirection(number, prev) === 'up' && getNormalDirection(next, number) === 'left')
-		) {
+		const corner = corners.find(corner => corner.index === number);
+		if (!corner) return;
+		if ((corner.prev === 'right' && corner.next === 'down') || (corner.prev === 'up' && corner.next === 'left')) {
 			return 'top-right';
 		} else if (
-			(getNormalDirection(number, prev) === 'up' && getNormalDirection(next, number) === 'right') ||
-			(getNormalDirection(number, prev) === 'left' && getNormalDirection(next, number) === 'down')
+			(corner.prev === 'up' && corner.next === 'right') ||
+			(corner.prev === 'left' && corner.next === 'down')
 		) {
 			return 'top-left';
 		} else if (
-			(getNormalDirection(number, prev) === 'down' && getNormalDirection(next, number) === 'left') ||
-			(getNormalDirection(number, prev) === 'right' && getNormalDirection(next, number) === 'up')
+			(corner.prev === 'down' && corner.next === 'left') ||
+			(corner.prev === 'right' && corner.next === 'up')
 		) {
 			return 'bottom-right';
 		} else if (
-			(getNormalDirection(number, prev) === 'left' && getNormalDirection(next, number) === 'up') ||
-			(getNormalDirection(number, prev) === 'down' && getNormalDirection(next, number) === 'right')
+			(corner.prev === 'left' && corner.next === 'up') ||
+			(corner.prev === 'down' && corner.next === 'right')
 		) {
 			return 'bottom-left';
 		}
