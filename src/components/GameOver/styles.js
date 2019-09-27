@@ -28,7 +28,7 @@ export const Text = styled.h3`
 `;
 
 export const Button = styled.button`
-	margin: 5px;
+	margin: 10px;
 	padding: 5px;
 	background-color: orange;
 	border: 4px solid orange;

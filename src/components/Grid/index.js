@@ -2,11 +2,11 @@ import React, { useState, useEffect } from 'react';
 import useInterval from '../../hooks/useInterval';
 import { Container, Cell, Head, Body, Tail, Eye, Pupil } from './styles';
 
-function Grid({ snake, food, foodPosition, direction, tailAppearing, corners }) {
+function Grid({ snake, food, foodPosition, direction, tailAppearing }) {
 	const [tailOpacity, setTailOpacity] = useState(1);
 	const [fadeInterval, setFadeInterval] = useState(null);
 
-	function getNormalDirection(firstPos, secondPos) {
+	function getDirection(firstPos, secondPos) {
 		switch (firstPos - secondPos) {
 			case 1:
 				return 'right';
@@ -16,43 +16,55 @@ function Grid({ snake, food, foodPosition, direction, tailAppearing, corners }) 
 				return 'down';
 			case -17:
 				return 'up';
+			case -16:
+				return 'right';
+			case 16:
+				return 'left';
+			case -272:
+				return 'down';
+			case 272:
+				return 'up';
 			default:
 				return;
 		}
 	}
 
 	function checkIfCorner(number) {
-		const corner = corners.find(corner => corner.index === number);
-		if (!corner) return;
-		if ((corner.prev === 'right' && corner.next === 'down') || (corner.prev === 'up' && corner.next === 'left')) {
+		const index = snake.indexOf(number);
+		const prev = snake[index - 1];
+		const next = snake[index + 1];
+		if (
+			(getDirection(number, prev) === 'right' && getDirection(next, number) === 'down') ||
+			(getDirection(number, prev) === 'up' && getDirection(next, number) === 'left')
+		) {
 			return 'top-right';
 		} else if (
-			(corner.prev === 'up' && corner.next === 'right') ||
-			(corner.prev === 'left' && corner.next === 'down')
+			(getDirection(number, prev) === 'up' && getDirection(next, number) === 'right') ||
+			(getDirection(number, prev) === 'left' && getDirection(next, number) === 'down')
 		) {
 			return 'top-left';
 		} else if (
-			(corner.prev === 'down' && corner.next === 'left') ||
-			(corner.prev === 'right' && corner.next === 'up')
+			(getDirection(number, prev) === 'down' && getDirection(next, number) === 'left') ||
+			(getDirection(number, prev) === 'right' && getDirection(next, number) === 'up')
 		) {
 			return 'bottom-right';
 		} else if (
-			(corner.prev === 'left' && corner.next === 'up') ||
-			(corner.prev === 'down' && corner.next === 'right')
+			(getDirection(number, prev) === 'left' && getDirection(next, number) === 'up') ||
+			(getDirection(number, prev) === 'down' && getDirection(next, number) === 'right')
 		) {
 			return 'bottom-left';
 		}
 		return null;
 	}
 
-	function getDirection(index, prevIndex) {
+	function getHeadDirection(index, prevIndex) {
 		if (
 			(direction === 'right' && snake[index] % 17 !== 0) ||
 			(direction === 'left' && snake[index] % 17 !== 16) ||
 			(direction === 'down' && snake[index] > 16) ||
 			(direction === 'up' && snake[index] < 272)
 		) {
-			return getNormalDirection(snake[index], snake[prevIndex]);
+			return getDirection(snake[index], snake[prevIndex]);
 		} else {
 			return direction;
 		}
@@ -74,16 +86,16 @@ function Grid({ snake, food, foodPosition, direction, tailAppearing, corners }) 
 			{Array.from(Array(289).keys()).map(number => (
 				<Cell key={number} number={number}>
 					{snake[snake.length - 1] === number ? (
-						<Head direction={getDirection(snake.length - 1, snake.length - 2)}>
-							<Eye direction={getDirection(snake.length - 1, snake.length - 2)}>
+						<Head direction={getHeadDirection(snake.length - 1, snake.length - 2)}>
+							<Eye direction={getHeadDirection(snake.length - 1, snake.length - 2)}>
 								<Pupil />
 							</Eye>
-							<Eye direction={getDirection(snake.length - 1, snake.length - 2)}>
+							<Eye direction={getHeadDirection(snake.length - 1, snake.length - 2)}>
 								<Pupil />
 							</Eye>
 						</Head>
 					) : snake[0] === number ? (
-						<Tail direction={getNormalDirection(snake[1], snake[0])} opacity={tailOpacity} />
+						<Tail direction={getDirection(snake[1], snake[0])} opacity={tailOpacity} />
 					) : snake.includes(number) ? (
 						<Body corner={() => checkIfCorner(number)} />
 					) : (
