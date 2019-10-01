@@ -69,7 +69,6 @@ function App() {
 
   useInterval(() => {
     const newSnake = getNewSnake();
-    console.log('Snake' + newSnake);
     setSnake(newSnake);
   }, interval);
 
