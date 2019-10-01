@@ -22,6 +22,9 @@ function App() {
   const foodArray = ['🍎', '🍏', '🍓', '🥭', '🍐', '🍌', '🍅', '🥕', '🥔', '🥬'];
 
   function startGame() {
+    setSnake(originalSnake);
+    setDirection('right');
+    setScore(0);
     setFood(foodArray[Math.floor(Math.random() * foodArray.length)]);
     setFoodPosition(getFoodPosition());
     setInterval(500);
@@ -36,6 +39,8 @@ function App() {
     if (key.indexOf('Arrow') === 0) {
       const newDirection = key.replace('Arrow', '').toLowerCase();
       setDirection(newDirection);
+    } else {
+      return;
     }
   }
 
