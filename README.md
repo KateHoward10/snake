@@ -1,6 +1,6 @@
 ## Play the game
 
-Currently available [here](https://ssssnek.herokuapp.com)
+Currently available [here](https://katehoward10.github.io/snek)
 
 ![Snek in action](Snek.gif)
 
