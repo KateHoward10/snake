@@ -5,6 +5,7 @@ import Controls from './components/Controls';
 import Grid from './components/Grid';
 import Arrows from './components/Arrows';
 import GameOver from './components/GameOver';
+import Cookies from './components/Cookies';
 import './App.css';
 
 function App() {
@@ -13,8 +14,10 @@ function App() {
   const [direction, setDirection] = useState('right');
   const [interval, setInterval] = useState(null);
   const [score, setScore] = useState(0);
-  const [cookies, setCookie] = useCookies(['highScore']);
+  const [cookiesModal, setCookiesModal] = useState(true);
+  const [cookies, setCookie] = useCookies(['highScore', 'cookiesAccepted']);
   const [highScore, setHighScore] = useState(cookies.highScore || 0);
+  const [cookiesAccepted, setCookiesAccepted] = useState(cookies.cookiesAccepted || false);
   const [tailAppearing, setTailAppearing] = useState(false);
   const [gameOver, toggleGameOver] = useState(false);
   const [foodPosition, setFoodPosition] = useState(null);
@@ -94,7 +97,7 @@ function App() {
       setFoodPosition(null);
       if (score > highScore) {
         setHighScore(score);
-        setCookie('highScore', score);
+        if (cookiesAccepted) setCookie('highScore', score);
       }
       setScore(0);
       toggleGameOver(true);
@@ -115,11 +118,21 @@ function App() {
     cookies,
     setCookie,
     foodArray,
-    originalSnake
+    originalSnake,
+    cookiesAccepted
   ]);
 
   return (
     <div className="App" role="button" tabIndex="0" onKeyDown={turn}>
+      {cookiesModal && !cookiesAccepted && (
+        <Cookies
+          onAccept={() => {
+            setCookiesAccepted(true);
+            setCookie('cookiesAccepted', true);
+          }}
+          onReject={() => setCookiesModal(false)}
+        />
+      )}
       <div>
         <Controls onClick={startGame} score={score} highScore={highScore} />
         <Grid
