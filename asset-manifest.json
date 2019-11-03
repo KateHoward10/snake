@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/snek/static/css/main.4a5bc3f6.chunk.css",
-    "main.js": "/snek/static/js/main.0617f1e9.chunk.js",
-    "main.js.map": "/snek/static/js/main.0617f1e9.chunk.js.map",
+    "main.js": "/snek/static/js/main.d8c341c7.chunk.js",
+    "main.js.map": "/snek/static/js/main.d8c341c7.chunk.js.map",
     "runtime-main.js": "/snek/static/js/runtime-main.3dbc6c52.js",
     "runtime-main.js.map": "/snek/static/js/runtime-main.3dbc6c52.js.map",
-    "static/js/2.c16ed238.chunk.js": "/snek/static/js/2.c16ed238.chunk.js",
-    "static/js/2.c16ed238.chunk.js.map": "/snek/static/js/2.c16ed238.chunk.js.map",
+    "static/js/2.de51eca7.chunk.js": "/snek/static/js/2.de51eca7.chunk.js",
+    "static/js/2.de51eca7.chunk.js.map": "/snek/static/js/2.de51eca7.chunk.js.map",
     "index.html": "/snek/index.html",
-    "precache-manifest.36957feb5085ff2c518eb8fe1e1ad385.js": "/snek/precache-manifest.36957feb5085ff2c518eb8fe1e1ad385.js",
+    "precache-manifest.60269d40dad2cc23a02ca12b7a21ad00.js": "/snek/precache-manifest.60269d40dad2cc23a02ca12b7a21ad00.js",
     "service-worker.js": "/snek/service-worker.js",
     "static/css/main.4a5bc3f6.chunk.css.map": "/snek/static/css/main.4a5bc3f6.chunk.css.map"
   }
