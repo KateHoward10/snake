@@ -6,6 +6,7 @@ import Grid from './components/Grid';
 import Arrows from './components/Arrows';
 import GameOver from './components/GameOver';
 import Cookies from './components/Cookies';
+import Instructions from './components/Instructions';
 import './App.css';
 
 function App() {
@@ -18,6 +19,7 @@ function App() {
   const [cookies, setCookie] = useCookies(['highScore', 'cookiesAccepted']);
   const [highScore, setHighScore] = useState(cookies.highScore || 0);
   const [cookiesAccepted, setCookiesAccepted] = useState(cookies.cookiesAccepted || false);
+  const [instructions, toggleInstructions] = useState(false);
   const [tailAppearing, setTailAppearing] = useState(false);
   const [gameOver, toggleGameOver] = useState(false);
   const [foodPosition, setFoodPosition] = useState(null);
@@ -133,8 +135,14 @@ function App() {
           onReject={() => setCookiesModal(false)}
         />
       )}
+      {instructions && <Instructions onClose={() => toggleInstructions(false)} />}
       <div>
-        <Controls onClick={startGame} score={score} highScore={highScore} />
+        <Controls
+          onClick={startGame}
+          score={score}
+          highScore={highScore}
+          openInstructions={() => toggleInstructions(true)}
+        />
         <Grid
           snake={snake}
           food={food}
@@ -143,7 +151,7 @@ function App() {
           tailAppearing={tailAppearing}
         />
         <Arrows onClick={turn} />
-        <GameOver visible={gameOver} onClick={() => toggleGameOver(false)} />
+        {gameOver && <GameOver onClose={() => toggleGameOver(false)} />}
       </div>
     </div>
   );

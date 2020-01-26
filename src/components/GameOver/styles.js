@@ -10,7 +10,6 @@ export const Overlay = styled.div`
 	display: flex;
 	align-items: center;
 	justify-content: center;
-	visibility: ${props => (props.visible ? 'visible' : 'hidden')};
 `;
 
 export const Container = styled.div`
@@ -34,6 +33,5 @@ export const Button = styled.button`
 	background-color: orange;
 	border: 4px solid orange;
 	border-radius: 10px;
-	color: white;
 	font-size: 18px;
 `;

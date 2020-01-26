@@ -8,26 +8,41 @@ export const Container = styled.div`
 `;
 
 export const Button = styled.button`
-	font-size: 20px;
 	margin: 10px;
 	padding: 5px;
 	background-color: orange;
 	border: 4px solid orange;
 	border-radius: 10px;
-	color: white;
-	@media screen and (max-width: 600px) {
-		font-size: 4vw;
+	font-size: 3vw;
+	@media screen and (min-width: 600px) {
+		font-size: 18px;
+	}
+`;
+
+export const QuestionButton = styled.button`
+	width: 30px;
+	height: 30px;
+	margin: 10px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	background-color: orange;
+	border: 4px solid orange;
+	border-radius: 50%;
+	font-size: 3vw;
+	@media screen and (min-width: 600px) {
+		font-size: 18px;
 	}
 `;
 
 export const Score = styled.p`
-	font-size: 20px;
 	margin: 10px;
 	padding: 5px;
 	background-color: transparent;
 	border: 4px solid orange;
 	border-radius: 10px;
-	@media screen and (max-width: 600px) {
-		font-size: 4vw;
+	font-size: 3vw;
+	@media screen and (min-width: 600px) {
+		font-size: 18px;
 	}
 `;

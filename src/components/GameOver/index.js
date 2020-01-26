@@ -1,9 +1,9 @@
 import React from 'react';
 import { Overlay, Container, Text, Button } from './styles';
 
-function GameOver({ visible, onClick }) {
+function GameOver({ onClose }) {
 	return (
-		<Overlay visible={visible}>
+		<Overlay>
 			<Container>
 				<Text>
 					Game over!{' '}
@@ -11,7 +11,7 @@ function GameOver({ visible, onClick }) {
 						🐍
 					</span>
 				</Text>
-				<Button onClick={onClick}>Close</Button>
+				<Button onClick={onClose}>Close</Button>
 			</Container>
 		</Overlay>
 	);
