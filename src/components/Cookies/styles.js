@@ -5,18 +5,19 @@ export const Container = styled.div`
 	flex-direction: row;
 	width: 100%;
 	align-items: center;
-	justify-content: space-between;
+	justify-content: space-around;
 	background-color: blue;
-	padding: 15px;
-	border-radius: 10px;
+	margin: 0;
 `;
 
-export const Text = styled.p`
+export const Text = styled.span`
 	color: white;
+	flex: 1;
+	margin: 15px;
 `;
 
 export const Button = styled.button`
-	margin: 10px;
+	margin: 15px;
 	padding: 5px;
 	font-size: 16px;
 	background-color: white;

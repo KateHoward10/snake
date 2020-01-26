@@ -19,12 +19,13 @@ export const Container = styled.div`
 	align-items: center;
 	justify-content: space-between;
 	background-color: blue;
-	padding: 15px;
+	padding: 20px;
 	border-radius: 10px;
 `;
 
-export const Text = styled.h3`
+export const Text = styled.h1`
 	color: white;
+	margin-top: 0;
 `;
 
 export const Button = styled.button`
@@ -34,4 +35,5 @@ export const Button = styled.button`
 	border: 4px solid orange;
 	border-radius: 10px;
 	color: white;
+	font-size: 18px;
 `;
