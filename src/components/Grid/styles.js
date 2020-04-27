@@ -16,7 +16,7 @@ export const Cell = styled.div`
 	align-items: center;
 	justify-content: center;
 	background-color: rgba(50, 168, 82, ${props => (props.number % 2 === 0 ? 0.8 : 0.5)});
-	font-size: 24px;
+  font-size: 24px;
 	@media screen and (max-width: 600px) {
 		font-size: 3vw;
 	}
@@ -25,7 +25,11 @@ export const Cell = styled.div`
 export const Body = styled.div`
 	width: 30px;
 	height: 30px;
-	background-color: blue;
+  background:
+  radial-gradient(circle at 0% 50%, blue 4px, darkblue 5px, blue 6px) 0px 5px,
+  radial-gradient(at 100% 100%,      blue 9px, darkblue 5px, blue 6px),
+  #8a3;
+  background-size: 10px 10px;
 	display: flex;
 	${props =>
 		props.corner &&
@@ -40,8 +44,12 @@ export const Body = styled.div`
 
 export const Head = styled.div`
 	width: 30px;
-	height: 30px;
-	background-color: blue;
+  height: 30px;
+  background:
+  radial-gradient(circle at 0% 50%, blue 4px, darkblue 5px, blue 6px) 0px 5px,
+  radial-gradient(at 100% 100%,      blue 9px, darkblue 5px, blue 6px),
+  #8a3;
+  background-size: 10px 10px;
 	display: flex;
 	flex-direction: ${props => (props.direction === 'up' || props.direction === 'down' ? 'row' : 'column')};
 	border-top-right-radius: ${props => (props.direction === 'right' || props.direction === 'up' ? '50%' : 0)};
@@ -59,7 +67,11 @@ export const Head = styled.div`
 export const Tail = styled.div`
 	width: 30px;
 	height: 30px;
-	background-color: blue;
+  background:
+  radial-gradient(circle at 0% 50%, blue 4px, darkblue 5px, blue 6px) 0px 5px,
+  radial-gradient(at 100% 100%,      blue 9px, darkblue 5px, blue 6px),
+  #8a3;
+  background-size: 10px 10px;
 	display: flex;
 	border-top-right-radius: ${props => (props.direction === 'left' || props.direction === 'down' ? '50%' : 0)};
 	border-bottom-right-radius: ${props => (props.direction === 'left' || props.direction === 'up' ? '50%' : 0)};
