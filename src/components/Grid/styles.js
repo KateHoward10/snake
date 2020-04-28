@@ -1,5 +1,13 @@
 import styled, { css } from 'styled-components';
 
+const dots = `
+  background-color: blue;
+  background-image: radial-gradient(darkblue 15%, transparent 16%),
+  radial-gradient(darkblue 15%, transparent 16%);
+  background-size: 15px 15px;
+  background-position: 0 0, 7.5px 7.5px;
+`;
+
 export const Container = styled.div`
 	display: grid;
 	grid-template-rows: repeat(17, 30px);
@@ -24,12 +32,8 @@ export const Cell = styled.div`
 
 export const Body = styled.div`
 	width: 30px;
-	height: 30px;
-  background:
-  radial-gradient(circle at 0% 50%, blue 4px, darkblue 5px, blue 6px) 0px 5px,
-  radial-gradient(at 100% 100%,      blue 9px, darkblue 5px, blue 6px),
-  #8a3;
-  background-size: 10px 10px;
+  height: 30px;
+  ${dots}
 	display: flex;
 	${props =>
 		props.corner &&
@@ -45,11 +49,7 @@ export const Body = styled.div`
 export const Head = styled.div`
 	width: 30px;
   height: 30px;
-  background:
-  radial-gradient(circle at 0% 50%, blue 4px, darkblue 5px, blue 6px) 0px 5px,
-  radial-gradient(at 100% 100%,      blue 9px, darkblue 5px, blue 6px),
-  #8a3;
-  background-size: 10px 10px;
+  ${dots}
 	display: flex;
 	flex-direction: ${props => (props.direction === 'up' || props.direction === 'down' ? 'row' : 'column')};
 	border-top-right-radius: ${props => (props.direction === 'right' || props.direction === 'up' ? '50%' : 0)};
@@ -66,12 +66,8 @@ export const Head = styled.div`
 
 export const Tail = styled.div`
 	width: 30px;
-	height: 30px;
-  background:
-  radial-gradient(circle at 0% 50%, blue 4px, darkblue 5px, blue 6px) 0px 5px,
-  radial-gradient(at 100% 100%,      blue 9px, darkblue 5px, blue 6px),
-  #8a3;
-  background-size: 10px 10px;
+  height: 30px;
+  ${dots}
 	display: flex;
 	border-top-right-radius: ${props => (props.direction === 'left' || props.direction === 'down' ? '50%' : 0)};
 	border-bottom-right-radius: ${props => (props.direction === 'left' || props.direction === 'up' ? '50%' : 0)};
