@@ -5,3 +5,8 @@
   min-height: 90vh;
   outline: none;
 }
+
+button:hover {
+  font-weight: bold;
+  cursor: pointer;
+}
