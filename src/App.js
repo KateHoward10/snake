@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import useInterval from './hooks/useInterval';
+import { originalSnake, getRandomFood, getFoodPosition, getNewSnake } from './helpers';
 import { useCookies } from 'react-cookie';
 import Controls from './components/Controls';
 import Grid from './components/Grid';
@@ -10,35 +11,29 @@ import Instructions from './components/Instructions';
 import './App.css';
 
 function App() {
-  const originalSnake = [137, 138, 139, 140];
-  const [snake, setSnake] = useState(originalSnake);
+  const [snake, setSnake] = useState(originalSnake());
   const [direction, setDirection] = useState('right');
   const [interval, setInterval] = useState(null);
   const [score, setScore] = useState(0);
   const [cookiesModal, setCookiesModal] = useState(true);
-  const [cookies, setCookie] = useCookies(['highScore', 'cookiesAccepted']);
-  const [highScore, setHighScore] = useState(cookies.highScore || 0);
-  const [cookiesAccepted, setCookiesAccepted] = useState(cookies.cookiesAccepted || false);
   const [instructions, toggleInstructions] = useState(false);
   const [tailAppearing, setTailAppearing] = useState(false);
   const [gameOver, toggleGameOver] = useState(false);
   const [foodPosition, setFoodPosition] = useState(null);
   const [food, setFood] = useState(null);
-  const foodArray = ['🍎', '🍏', '🍓', '🥭', '🍐', '🍌', '🍅', '🥕', '🥔', '🥬'];
+
+  const [cookies, setCookie] = useCookies(['highScore', 'cookiesAccepted']);
+  const [highScore, setHighScore] = useState(cookies.highScore || 0);
+  const [cookiesAccepted, setCookiesAccepted] = useState(cookies.cookiesAccepted || false);
 
   function startGame() {
-    setSnake(originalSnake);
+    setSnake(originalSnake());
     setDirection('right');
     setScore(0);
-    setFood(foodArray[Math.floor(Math.random() * foodArray.length)]);
-    setFoodPosition(getFoodPosition());
+    setFood(getRandomFood());
+    setFoodPosition(getFoodPosition(snake));
     setInterval(500);
   }
-
-  const getFoodPosition = useCallback(() => {
-    const first = Math.floor(Math.random() * 289);
-    return snake.includes(first) ? getFoodPosition() : first;
-  }, [snake]);
 
   function turn({ key }) {
     if (key.indexOf('Arrow') === 0) {
@@ -49,51 +44,18 @@ function App() {
     }
   }
 
-  function getNewSnake() {
-    snake.shift();
-    switch (direction) {
-      case 'right':
-        if (snake[snake.length - 1] % 17 === 16) {
-          return [...snake, snake[snake.length - 1] - 16];
-        }
-        return [...snake, snake[snake.length - 1] + 1];
-      case 'left':
-        if (snake[snake.length - 1] % 17 === 0) {
-          return [...snake, snake[snake.length - 1] + 16];
-        }
-        return [...snake, snake[snake.length - 1] - 1];
-      case 'down':
-        if (272 <= snake[snake.length - 1] && snake[snake.length - 1] <= 288) {
-          return [...snake, snake[snake.length - 1] - 272];
-        }
-        return [...snake, snake[snake.length - 1] + 17];
-      case 'up':
-        if (0 <= snake[snake.length - 1] && snake[snake.length - 1] <= 16) {
-          return [...snake, snake[snake.length - 1] + 272];
-        }
-        return [...snake, snake[snake.length - 1] - 17];
-      default:
-        return snake;
-    }
-  }
-
-  useInterval(() => {
-    const newSnake = getNewSnake();
-    setSnake(newSnake);
-  }, interval);
-
-  useEffect(() => {
+  const checkPosition = useCallback((snake) => {
     // If you eat the food
     if (snake[snake.length - 1] === foodPosition) {
       setSnake([snake[0] - (snake[1] - snake[0] * -1), ...snake]);
       setTailAppearing(true);
-      setFood(foodArray[Math.floor(Math.random() * foodArray.length)]);
-      setFoodPosition(getFoodPosition());
+      setFood(getRandomFood());
+      setFoodPosition(getFoodPosition(snake));
       setScore(score + 10);
-      setInterval(interval * 0.98);
+      setInterval(i => i * 0.98);
       // If you bump into yourself
     } else if (snake.slice(0, snake.length - 1).includes(snake[snake.length - 1])) {
-      setSnake(originalSnake);
+      setSnake(originalSnake());
       setDirection('right');
       setInterval(null);
       setFoodPosition(null);
@@ -106,23 +68,14 @@ function App() {
     } else {
       setTailAppearing(false);
     }
-  }, [
-    snake,
-    foodPosition,
-    setFoodPosition,
-    getFoodPosition,
-    setSnake,
-    score,
-    highScore,
-    setScore,
-    interval,
-    setInterval,
-    cookies,
-    setCookie,
-    foodArray,
-    originalSnake,
-    cookiesAccepted
-  ]);
+  }, [foodPosition, score, highScore, setCookie, cookiesAccepted]);
+
+  useInterval(() => {
+    const newSnake = getNewSnake(snake, direction);
+    setSnake(newSnake);
+  }, interval);
+
+  useEffect(() => checkPosition(snake), [snake, checkPosition]);
 
   return (
     <div className="App" role="button" tabIndex="0" onKeyDown={turn}>
