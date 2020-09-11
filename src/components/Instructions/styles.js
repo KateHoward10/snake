@@ -16,7 +16,6 @@ export const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: space-between;
   background-color: blue;
   padding: 20px;
   border-radius: 10px;
@@ -37,4 +36,5 @@ export const Button = styled.button`
   border: 4px solid orange;
   border-radius: 10px;
   font-size: 18px;
+  flex-shrink: 0;
 `;
