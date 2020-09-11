@@ -18,11 +18,14 @@ export const Container = styled.div`
 `;
 
 export const Button = styled.button`
-	padding: 5px;
+  padding: 5px;
 	background-color: orange;
 	border-radius: 10px;
   font-size: 3vw;
   ${defaults}
+	@media screen and (min-width: 600px) {
+    width: 64px;
+  }
 `;
 
 export const QuestionButton = styled.button`

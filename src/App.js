@@ -72,7 +72,7 @@ function App() {
   useEffect(() => checkPosition(snake), [snake, checkPosition]);
 
   return (
-    <div className="App" role="button" tabIndex="0" onKeyDown={turn}>
+    <div className="game" role="button" tabIndex="0" onKeyDown={turn}>
       {instructions && <Instructions onClose={() => toggleInstructions(false)} />}
       <div>
         <Controls
