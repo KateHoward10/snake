@@ -1,12 +1,10 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import useInterval from './hooks/useInterval';
 import { originalSnake, getRandomFood, getFoodPosition, getNewSnake } from './helpers';
-import { useCookies } from 'react-cookie';
 import Controls from './components/Controls';
 import Grid from './components/Grid';
 import Arrows from './components/Arrows';
 import GameOver from './components/GameOver';
-import Cookies from './components/Cookies';
 import Instructions from './components/Instructions';
 import './App.css';
 
@@ -15,16 +13,12 @@ function App() {
   const [direction, setDirection] = useState('right');
   const [interval, setInterval] = useState(null);
   const [score, setScore] = useState(0);
-  const [cookiesModal, setCookiesModal] = useState(true);
   const [instructions, toggleInstructions] = useState(false);
   const [tailAppearing, setTailAppearing] = useState(false);
   const [gameOver, toggleGameOver] = useState(false);
   const [foodPosition, setFoodPosition] = useState(null);
   const [food, setFood] = useState(null);
-
-  const [cookies, setCookie] = useCookies(['highScore', 'cookiesAccepted']);
-  const [highScore, setHighScore] = useState(cookies.highScore || 0);
-  const [cookiesAccepted, setCookiesAccepted] = useState(cookies.cookiesAccepted || false);
+  const [highScore, setHighScore] = useState(localStorage.getItem("highScore") || 0);
 
   function startGame() {
     setSnake(originalSnake());
@@ -61,14 +55,14 @@ function App() {
       setFoodPosition(null);
       if (score > highScore) {
         setHighScore(score);
-        if (cookiesAccepted) setCookie('highScore', score);
+        localStorage.setItem("highScore", score);
       }
       setScore(0);
       toggleGameOver(true);
     } else {
       setTailAppearing(false);
     }
-  }, [foodPosition, score, highScore, setCookie, cookiesAccepted]);
+  }, [foodPosition, score, highScore]);
 
   useInterval(() => {
     const newSnake = getNewSnake(snake, direction);
@@ -79,15 +73,6 @@ function App() {
 
   return (
     <div className="App" role="button" tabIndex="0" onKeyDown={turn}>
-      {cookiesModal && !cookiesAccepted && (
-        <Cookies
-          onAccept={() => {
-            setCookiesAccepted(true);
-            setCookie('cookiesAccepted', true);
-          }}
-          onReject={() => setCookiesModal(false)}
-        />
-      )}
       {instructions && <Instructions onClose={() => toggleInstructions(false)} />}
       <div>
         <Controls
