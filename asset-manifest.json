@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/snek/static/css/main.caeefa16.chunk.css",
-    "main.js": "/snek/static/js/main.2d2dd80c.chunk.js",
-    "main.js.map": "/snek/static/js/main.2d2dd80c.chunk.js.map",
+    "main.css": "/snek/static/css/main.fce81517.chunk.css",
+    "main.js": "/snek/static/js/main.61626df3.chunk.js",
+    "main.js.map": "/snek/static/js/main.61626df3.chunk.js.map",
     "runtime-main.js": "/snek/static/js/runtime-main.fd024fa1.js",
     "runtime-main.js.map": "/snek/static/js/runtime-main.fd024fa1.js.map",
     "static/js/2.9097d415.chunk.js": "/snek/static/js/2.9097d415.chunk.js",
     "static/js/2.9097d415.chunk.js.map": "/snek/static/js/2.9097d415.chunk.js.map",
     "index.html": "/snek/index.html",
-    "precache-manifest.e9534ea28c85a44d91b9670ba6edfce2.js": "/snek/precache-manifest.e9534ea28c85a44d91b9670ba6edfce2.js",
+    "precache-manifest.54728d2fb0969557993344dea27a4686.js": "/snek/precache-manifest.54728d2fb0969557993344dea27a4686.js",
     "service-worker.js": "/snek/service-worker.js",
-    "static/css/main.caeefa16.chunk.css.map": "/snek/static/css/main.caeefa16.chunk.css.map"
+    "static/css/main.fce81517.chunk.css.map": "/snek/static/css/main.fce81517.chunk.css.map"
   }
 }
