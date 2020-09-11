@@ -57,7 +57,6 @@ function App() {
         setHighScore(score);
         localStorage.setItem("highScore", score);
       }
-      setScore(0);
       toggleGameOver(true);
     } else {
       setTailAppearing(false);
