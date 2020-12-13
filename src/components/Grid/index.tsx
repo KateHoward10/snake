@@ -42,7 +42,7 @@ const Grid: React.FC<Props> = ({ snake, food, foodPosition, direction, tailAppea
           ) : snake[0] === number ? (
             <Tail direction={getDirection(snake[1], snake[0])} opacity={tailOpacity} />
           ) : snake.includes(number) ? (
-            <Body corner={checkIfCorner(snake, number)|| null} />
+            <Body corner={checkIfCorner(snake, number)} />
           ) : (
             number === foodPosition && food
           )}

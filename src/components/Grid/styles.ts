@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 
 const dots = `
   background-color: blue;
@@ -43,10 +43,10 @@ export const Body = styled.div<BodyProps>(({ corner }) =>`
   height: 30px;
   ${dots}
   display: flex;
-  ${corner &&
-    css`
-      border-${corner}-radius: 50%;
-    `}
+  border-top-right-radius: ${corner === 'top-right' ? '50%' : 0};
+  border-bottom-right-radius: ${corner === 'bottom-right' ? '50%' : 0};
+  border-bottom-left-radius: ${corner === 'bottom-left' ? '50%' : 0};
+  border-top-left-radius: ${corner === 'top-left' ? '50%' : 0};
   @media screen and (max-width: 600px) {
     width: 5vw;
     height: 5vw;
