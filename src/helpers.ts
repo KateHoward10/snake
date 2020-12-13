@@ -1,17 +1,17 @@
-export const originalSnake = () => [137, 138, 139, 140];
+export const originalSnake = (): number[] => [137, 138, 139, 140];
 
 const foodArray = ['🍎', '🍏', '🍓', '🥭', '🍐', '🍌', '🍅', '🥕', '🥔', '🥬'];
 
-export const getRandomFood = () => {
+export const getRandomFood = (): string => {
   return foodArray[Math.floor(Math.random() * foodArray.length)];
 };
 
-export const getFoodPosition = (snake) => {
+export const getFoodPosition = (snake: number[]): number => {
   const first = Math.floor(Math.random() * 289);
   return snake.includes(first) ? getFoodPosition(snake) : first;
 };
 
-export function getNewSnake(snake, direction) {
+export function getNewSnake(snake: number[], direction: string): number[] {
   snake.shift();
   switch (direction) {
     case 'right':
@@ -39,7 +39,7 @@ export function getNewSnake(snake, direction) {
   }
 };
 
-export function getDirection(firstPos, secondPos) {
+export function getDirection(firstPos: number, secondPos: number): string|null {
   switch (firstPos - secondPos) {
     case 1:
     case -16:
@@ -54,11 +54,11 @@ export function getDirection(firstPos, secondPos) {
     case 272:
       return 'up';
     default:
-      return;
+      return null;
   }
 };
 
-export function checkIfCorner(snake, number) {
+export const checkIfCorner = (snake: number[], number: number): string|null => {
   const index = snake.indexOf(number);
   const prev = snake[index - 1];
   const next = snake[index + 1];
@@ -86,7 +86,7 @@ export function checkIfCorner(snake, number) {
   return null;
 };
 
-export function getHeadDirection(direction, pos, prev) {
+export function getHeadDirection(direction: string, pos: number, prev: number): string|null {
   if (
     (direction === 'right' && pos % 17 !== 0) ||
     (direction === 'left' && pos % 17 !== 16) ||

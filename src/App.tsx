@@ -9,16 +9,16 @@ import Instructions from './components/Instructions';
 import './App.css';
 
 function App() {
-  const [snake, setSnake] = useState(originalSnake());
-  const [direction, setDirection] = useState('right');
-  const [interval, setInterval] = useState(null);
-  const [score, setScore] = useState(0);
-  const [instructions, toggleInstructions] = useState(false);
-  const [tailAppearing, setTailAppearing] = useState(false);
-  const [gameOver, toggleGameOver] = useState(false);
-  const [foodPosition, setFoodPosition] = useState(null);
-  const [food, setFood] = useState(null);
-  const [highScore, setHighScore] = useState(localStorage.getItem("highScore") || 0);
+  const [snake, setSnake] = useState<number[]>(originalSnake());
+  const [direction, setDirection] = useState<string>('right');
+  const [interval, setInterval] = useState<number|null>(null);
+  const [score, setScore] = useState<number>(0);
+  const [instructions, toggleInstructions] = useState<boolean>(false);
+  const [tailAppearing, setTailAppearing] = useState<boolean>(false);
+  const [gameOver, toggleGameOver] = useState<boolean>(false);
+  const [foodPosition, setFoodPosition] = useState<number|null>(null);
+  const [food, setFood] = useState<string|null>(null);
+  const [highScore, setHighScore] = useState<number>(+(localStorage.getItem("highScore") || 0));
 
   function startGame() {
     setSnake(originalSnake());
@@ -29,7 +29,7 @@ function App() {
     setInterval(500);
   }
 
-  function turn({ key }) {
+  function turn({ key }: { key: string }) {
     if (key.indexOf('Arrow') === 0) {
       const newDirection = key.replace('Arrow', '').toLowerCase();
       setDirection(newDirection);
@@ -46,7 +46,7 @@ function App() {
       setFood(getRandomFood());
       setFoodPosition(getFoodPosition(snake));
       setScore(score + 10);
-      setInterval(i => i * 0.98);
+      setInterval(i => i ? i * 0.98 : null);
       // If you bump into yourself
     } else if (snake.slice(0, snake.length - 1).includes(snake[snake.length - 1])) {
       setSnake(originalSnake());
@@ -55,7 +55,7 @@ function App() {
       setFoodPosition(null);
       if (score > highScore) {
         setHighScore(score);
-        localStorage.setItem("highScore", score);
+        localStorage.setItem("highScore", score.toString());
       }
       toggleGameOver(true);
     } else {
@@ -71,7 +71,7 @@ function App() {
   useEffect(() => checkPosition(snake), [snake, checkPosition]);
 
   return (
-    <div className="game" role="button" tabIndex="0" onKeyDown={turn}>
+    <div className="game" role="button" tabIndex={0} onKeyDown={turn}>
       {instructions && <Instructions onClose={() => toggleInstructions(false)} />}
       <div>
         <Controls
@@ -92,6 +92,6 @@ function App() {
       </div>
     </div>
   );
-}
+};
 
 export default App;

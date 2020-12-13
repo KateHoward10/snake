@@ -23,7 +23,7 @@ export const Container = styled.div`
   margin: auto;
   max-width: 80vw;
   max-height: 70vh;
-  overflow-y: scroll;
+  overflow-y: auto;
   @media screen and (min-width: 600px) {
     max-width: 500px;
   }

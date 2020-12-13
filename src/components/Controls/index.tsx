@@ -1,7 +1,13 @@
 import React from 'react';
 import { Container, Button, QuestionButton, Score } from './styles';
 
-const Controls = ({ onClick, score, highScore, openInstructions }) => (
+interface Props {
+  onClick: () => void,
+  score: number,
+  highScore: number,
+  openInstructions: () => void
+}
+const Controls: React.FC<Props> = ({ onClick, score, highScore, openInstructions }) => (
   <Container>
     <Button onClick={onClick}>PLAY</Button>
     <Score>Score: {score}</Score>
@@ -9,5 +15,6 @@ const Controls = ({ onClick, score, highScore, openInstructions }) => (
     <QuestionButton onClick={openInstructions}>?</QuestionButton>
   </Container>
 );
+
 
 export default Controls;
