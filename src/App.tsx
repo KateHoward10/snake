@@ -73,23 +73,21 @@ function App() {
   return (
     <div className="game" role="button" tabIndex={0} onKeyDown={turn}>
       {instructions && <Instructions onClose={() => toggleInstructions(false)} />}
-      <div>
-        <Controls
-          onClick={startGame}
-          score={score}
-          highScore={highScore}
-          openInstructions={() => toggleInstructions(true)}
-        />
-        <Grid
-          snake={snake}
-          food={food}
-          foodPosition={foodPosition}
-          direction={direction}
-          tailAppearing={tailAppearing}
-        />
-        <Arrows onClick={turn} />
-        {gameOver && <GameOver onClose={() => toggleGameOver(false)} />}
-      </div>
+      <Controls
+        onClick={startGame}
+        score={score}
+        highScore={highScore}
+        openInstructions={() => toggleInstructions(true)}
+      />
+      <Grid
+        snake={snake}
+        food={food}
+        foodPosition={foodPosition}
+        direction={direction}
+        tailAppearing={tailAppearing}
+      />
+      <Arrows onClick={turn} />
+      {gameOver && <GameOver onClose={() => toggleGameOver(false)} />}
     </div>
   );
 };
